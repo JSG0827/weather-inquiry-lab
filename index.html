@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#152e47"><title>WEATHER / DATA — 기상 자료 탐색실</title><meta name="description" content="세 자료 파트에서 필요한 정보를 찾아 1번 학습지에 기록하고 과학적 설명과 예측은 종이에 작성하는 자료 분석 도구"><link rel="stylesheet" href="styles.css"><script defer src="core.js"></script><script defer src="data.js"></script><script defer src="analysis.js"></script><script defer src="app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a>
+<header><a class="brand" href="./"><span class="brand-symbol" aria-hidden="true">▥</span><span>WEATHER <i>/</i> DATA<small>지구시스템과학 · 기상 자료실</small></span></a><span class="source-tag">교육용 재구성 자료</span></header>
+<main id="main">
+<section id="entry" class="entry">
+  <div><p class="eyebrow">OBSERVATION WORKSPACE</p><h1>날씨의 변화,<br><em>데이터로 살펴보기.</em></h1><p class="entry-copy">같은 시각, 다른 지점.<br>같은 지점, 다른 시각.</p><div class="entry-demo" aria-hidden="true"><span>관측 시작</span><span>시간 변화</span><span>관측 종료</span><svg viewBox="0 0 420 100"><path d="M20 80L240 30L400 20" fill="none" stroke="#167a91" stroke-width="3"/><path d="M20 80L240 70L400 60" fill="none" stroke="#b55e28" stroke-width="3" stroke-dasharray="7 5"/><g fill="#167a91"><circle cx="20" cy="80" r="5"/><circle cx="240" cy="30" r="5"/><circle cx="400" cy="20" r="5"/></g></svg><small>그래프 · 비교표 · 전체 자료</small></div></div>
+  <div class="entry-form"><p class="eyebrow">SELECT DATASET</p><h2>학습지의 세트를 선택하세요</h2><div id="case-options" class="case-options" aria-label="자료 유형 선택"><button type="button" data-case="A" aria-label="A 유형 자료 열기">A</button><button type="button" data-case="B" aria-label="B 유형 자료 열기">B</button><button type="button" data-case="C" aria-label="C 유형 자료 열기">C</button><button type="button" data-case="D" aria-label="D 유형 자료 열기">D</button></div></div>
+</section>
+<section id="lab" hidden>
+  <div class="lab-heading"><div><p id="session-info" class="eyebrow"></p><h1 id="case-title"></h1><p id="period" class="period"></p></div><button id="switch-user" class="button ghost">유형 선택</button></div>
+
+  <div class="workspace-bar"><div class="view-tabs" role="tablist" aria-label="자료 보기 방식"><button id="analysis-tab" role="tab" aria-selected="true" aria-controls="analysis-view">주요 변화 상황</button><button id="graph-tab" role="tab" aria-selected="false" aria-controls="graph-view">물리량 변화 그래프</button><button id="model-tab" role="tab" aria-selected="false" aria-controls="model-view">공기덩어리 계산 모형</button><button id="table-tab" role="tab" aria-selected="false" aria-controls="table-view">전체 자료표</button></div><button id="download-data" class="button ghost csv-button">CSV ↓</button></div>
+  <section id="analysis-view" role="tabpanel" aria-labelledby="analysis-tab">
+    <div class="analysis-intro"><div><p class="eyebrow">FIELD OBSERVATIONS</p><h2>주요 변화 상황</h2><p>관측 위치와 시각별 현장 기록을 살펴보세요.</p></div></div>
+  <section class="site-strip" aria-label="관측 환경"><div id="site-map" class="site-map"></div><div class="site-info"><p class="eyebrow">OBSERVATION SITES</p><div id="site-legend" class="site-legend"></div><p id="case-context"></p><p id="extra-context" class="fine"></p></div><div class="event-note"><span>관측된 현상</span><p id="outcome"></p></div></section>
+    <section class="analysis-block"><div class="analysis-block-heading"><h2>시각별 현장 기록</h2><span>두 지점 · 일곱 시각</span></div><div id="field-records"></div><p class="chart-note">구름량은 지표 안개를 제외합니다. 강수량은 직전 1시간의 양, 시정은 물체를 구별할 수 있는 거리입니다. 풍향은 바람이 불어오는 쪽입니다.</p></section>
+  </section>
+  <section id="model-view" role="tabpanel" aria-labelledby="model-tab" hidden>
+    <div class="analysis-intro"><div><p class="eyebrow">AIR PARCEL MODEL</p><h2>공기덩어리 계산 모형</h2><p>같은 높이에 있는 두 공기의 기온을 비교할 수 있습니다.</p></div></div>
+    <section class="analysis-block"><div class="analysis-block-heading model-heading"><div><p class="model-height-label">지면 위 1 km에서의 기온</p><h2 id="analysis-model-target"></h2></div></div><p class="analysis-model-intro">이 시각의 지상 공기를 외력으로 지면 위 1 km까지 올렸다고 가정합니다.</p><div id="analysis-parcel" class="analysis-parcel"></div><p class="analysis-model-note">관측값과 구분한 교육용 근사 모형 · 혼합 없이 건조 10 ℃/km와 습윤 5 ℃/km 적용. 이 높이에 도달한 뒤의 상승 경향은 직접 판단합니다.</p></section>
+    <details class="profile-details"><summary>고도별 주변 기온 보기</summary><p id="profile-note" class="chart-note"></p><div id="profile-table" class="table-wrap"></div></details>
+  </section>
+  <section id="graph-view" role="tabpanel" aria-labelledby="graph-tab" hidden>
+    <nav id="metric-tabs" class="metric-tabs" aria-label="자료 항목"></nav>
+    <section class="chart-panel" aria-label="시계열 그래프">
+      <div class="chart-heading"><div><p class="eyebrow">TIME SERIES</p><h2 id="chart-title"></h2></div><div id="temperature-fields" class="field-tabs" role="group" aria-label="기온 측정 위치"><button data-field="temperature" aria-pressed="true">지상</button><button data-field="surfaceTemperature" aria-pressed="false">지표면</button><button data-field="upperTemperature" aria-pressed="false">상공 1 km</button></div></div>
+      <div class="chart-topline"><div id="chart-legend" class="chart-legend"></div><span id="unit-label"></span></div>
+      <div id="chart" class="chart"></div><p id="chart-note" class="chart-note"></p>
+      <div class="timeline"><span class="timeline-label">비교할 시각</span><div id="time-buttons" class="time-buttons"></div></div>
+    </section>
+    <section class="comparison-panel"><div class="comparison-heading"><h2>전·후 비교</h2><span id="comparison-caption"></span></div><div id="comparison-table" class="table-wrap"></div></section>
+  </section>
+  <section id="table-view" role="tabpanel" aria-labelledby="table-tab" hidden><div class="table-heading"><div><p class="eyebrow">DATA TABLE</p><h2>두 지점 · 일곱 시각 · 같은 항목</h2></div><span>기온 ℃ · 습도 % · 구름량 % · 풍속 m/s · 강수 mm · 시정 km</span></div><div id="all-tables" class="all-tables"></div></section>
+  <div class="dataset-note"><span>DATA NOTE</span><p>교육용 재구성 값 · 실제 특정 날짜의 관측값이 아닙니다. 강수량은 해당 시각 직전 1시간의 양입니다.</p></div>
+</section></main><footer><span>WEATHER / DATA</span></footer><div id="toast" class="toast" role="status" aria-live="polite"></div></body></html>
