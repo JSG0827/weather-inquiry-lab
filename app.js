@@ -27,10 +27,10 @@
     if(!current){toast('학습지의 유형을 선택하세요.');return;}
     frame=current.afterIndex;group='temperature';field='temperature';
     $('entry').hidden=true;$('lab').hidden=false;
-    $('session-info').textContent='세트 '+id+' · 교육용 재구성 자료';
+    $('session-info').textContent='세트 '+id+' · 두 번째 반용 · 교육용 재구성 자료';
     $('case-title').textContent=current.title;$('period').textContent=current.period+' · 두 지점 · '+current.times.length+'개 시각';
     $('case-context').textContent=current.context;$('outcome').textContent=current.outcome;
-    $('extra-context').textContent=current.scene==='coast'?'남쪽에서 들어오는 공기: 18 ℃ · 습도 82%':current.stationNames.map((s,j)=>(j+1)+'번 지점 해발 '+current.elevations[j]+' m').join(' / ');
+    $('extra-context').textContent=current.scene==='coast'?'남쪽에서 들어오는 공기: '+current.inflow.temperature+' ℃ · 습도 '+current.inflow.humidity+'%':current.stationNames.map((s,j)=>(j+1)+'번 지점 해발 '+current.elevations[j]+' m').join(' / ');
     $('site-legend').innerHTML=current.stationNames.map((s,j)=>'<span class="s'+(j+1)+'"><i class="dot"></i>'+e(siteName(j))+'</span>').join('');
     $('chart-legend').innerHTML=current.stationNames.map((s,j)=>'<span class="s'+(j+1)+'"><i class="legend-line"></i>'+e(siteName(j))+'</span>').join('');
     renderAnalysis();view('analysis');render();window.scrollTo({top:0,behavior:'instant'});
@@ -125,7 +125,7 @@
     if(current.scene==='mountain')s+='<path d="M0 145L60 125L130 32L200 125L260 145V160H0Z" fill="#c0cdb7"/><path d="M92 88L130 32L169 88L133 65Z" fill="#91ab90"/><text x="130" y="22" text-anchor="middle" fill="#647588" font-size="10">1,500 m</text><text x="30" y="151" fill="#647588" font-size="9">서쪽</text><text x="210" y="151" fill="#647588" font-size="9">동쪽</text>';
     if(current.scene==='plain')s+='<path d="M0 128Q70 115 130 129T260 123V160H0Z" fill="#c0cdb7"/><text x="130" y="152" text-anchor="middle" fill="#647588" font-size="10">← 25 km →</text>';
     if(current.scene==='field')s+='<path d="M0 100Q70 145 130 138T260 91V160H0Z" fill="#c0cdb7"/><text x="225" y="29" fill="#647588" font-size="16">'+((Number(current.times[frame].match(/\d{1,2}시/)[0])<7||Number(current.times[frame].match(/\d{1,2}시/)[0])>=18)?'☾':'☀')+'</text>';
-    if(current.scene==='coast')s+='<rect y="110" width="260" height="50" fill="#b2cdd7"/><path d="M0 110Q70 105 130 112T260 108" stroke="white" fill="none" stroke-width="3"/><text x="169" y="143" font-size="10" fill="#477485">바다 12 ℃</text><text x="158" y="26" font-size="10" fill="#647588">북쪽 ↑</text>';
+    if(current.scene==='coast')s+='<rect y="110" width="260" height="50" fill="#b2cdd7"/><path d="M0 110Q70 105 130 112T260 108" stroke="white" fill="none" stroke-width="3"/><text x="169" y="143" font-size="10" fill="#477485">바다 '+current.seaTemperature+' ℃</text><text x="158" y="26" font-size="10" fill="#647588">북쪽 ↑</text>';
     const pos=current.scene==='coast'?[[70,105],[130,55]]:current.scene==='field'?[[55,130],[209,112]]:[[45,125],[215,125]];
     current.frames[frame].forEach((r,j)=>{
       const x=pos[j][0],y=pos[j][1];
